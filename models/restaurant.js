@@ -37,5 +37,5 @@ restaurantSchema.set('toJSON', {
     virtuals: true,
 });
 
-exports.Restaurant = mongoose.model('Restaurant', resturantSchema);
+exports.Restaurant = mongoose.model('Restaurant', restaurantSchema);
 exports.restaurantSchema = restaurantSchema;
