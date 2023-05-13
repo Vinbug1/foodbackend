@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
+const {User} = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -244,7 +244,7 @@ router.post('/login', async (req, res) => {
       }
       if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
         const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1d' });
-        const { email, password, role } = user;
+        ///const { email, password, role } = user;
         res.status(200).send({ user:user.email,token: token, user:user.password, user:user.role });
       } else {
         res.status(400).send('Invalid email or password');
