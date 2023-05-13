@@ -101,7 +101,7 @@ router.post('/', uploadOptions.single('image'), async (req, res) => {
     }
 });
 
-router.put('/:id', upload.single('image'), async (req, res) => {
+router.put('/:id', uploadOptions.single('image'), async (req, res) => {
     const productId = req.params.id;
     const { category, name, price, restaurant } = req.body;
   
