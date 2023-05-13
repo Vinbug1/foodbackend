@@ -235,39 +235,39 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
 //     res.send(userUpdate);
 // })
 
-router.post('/login', async (req, res) => {
-    try {
-      const user = await User.findOne({ email: req.body.email });
-      const secret = process.env.secret;
-      if (!user) {
-        return res.status(400).send('The user not found');
-      }
-      if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1d' });
-       // const { email, password, role } = user;
-        res.status(200).send({ user:user.email,token: token, user:user.password, user:user.role });
-      } else {
-        res.status(400).send('Invalid email or password');
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal server error');
-    }
-  });
-  
-// router.post('/login', async (req,res) => {
-//     const user = await User.findOne({email: req.body.email})
-//     const secret = process.env.secret;
-//     if(!user) {
+// router.post('/login', async (req, res) => {
+//     try {
+//       const user = await User.findOne({ email: req.body.email });
+//       const secret = process.env.secret;
+//       if (!user) {
 //         return res.status(400).send('The user not found');
+//       }
+//       if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+//         const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1d' });
+//        // const { email, password, role } = user;
+//         res.status(200).send({ user:user.email,token: token, user:user.password, user:user.role });
+//       } else {
+//         res.status(400).send('Invalid email or password');
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Internal server error');
 //     }
-//     if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-//         const token = jwt.sign({ userId: user.id},secret,{expiresIn : '1d'} )
-//         res.status(200).send({user: user.email , token: token, user:user.password,user:user.role}); 
-//     } else {
-//        res.status(400).send('password is wrong!');
-//     }
-// })
+//   });
+  
+router.post('/login', async (req,res) => {
+    const user = await User.findOne({email: req.body.email})
+    const secret = process.env.secret;
+    if(!user) {
+        return res.status(400).send('The user not found');
+    }
+    if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+        const token = jwt.sign({ userId: user.id},secret,{expiresIn : '1d'} )
+        res.status(200).send({user: user.email , token: token, user:user.password,user:user.role}); 
+    } else {
+       res.status(400).send('password is wrong!');
+    }
+})
 
 router.post('/register', uploadOptions.single('image'), async (req, res) => {
     try {
