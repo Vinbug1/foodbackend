@@ -8,7 +8,7 @@ const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler');
 
 app.use(cors());
-app.options('*', cors());
+//app.options('*', cors());
 
 //middleware
 app.use(express.json());
