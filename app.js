@@ -7,9 +7,8 @@ require('dotenv/config');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler');
 
-app.use(cors({ origin: 'http://localhost:3000',
-'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',}));
-//app.options('*', cors());
+app.use(cors());
+app.options('http://localhost:3000', cors());
 
 //middleware
 app.use(express.json());
@@ -59,6 +58,6 @@ mongoose
     });
 
 //Server
-app.listen(5000, () => {
-    console.log('server is running http://localhost:5000');
+app.listen(8000, () => {
+    console.log('server is running http://localhost:8000');
 });
