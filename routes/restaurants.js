@@ -1,11 +1,8 @@
 const { Restaurant } = require('../models/restaurant');
 const express = require('express');
-//const { Category } = require('../models/category');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-//const bcrypt = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
