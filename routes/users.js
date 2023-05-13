@@ -301,8 +301,11 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const mailOptions = {
         from: EMAIL,
         to: user.email,
-        subject: {user:req.body.email,user:req.body.passwordHash},
-        html: '<p>Welcome to greyFoods attached to this mail is your email and password</p>'
+        subject: 'Welcome to greyExpressFoods',
+        html: `<h2>Welcome to our App!</h2>
+        <p>Your email address is: ${req.body.email}</p>
+        <p>Your password is: ${req.body.password}</p>`
+         
       };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
