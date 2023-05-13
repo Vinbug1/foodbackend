@@ -13,12 +13,13 @@ const FILE_TYPE_MAP = {
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const isValid = FILE_TYPE_MAP[file.mimetype];
-        let uploadError = new Error('invalid image type');
+        const uploadError = new Error('Invalid image type');
 
         if (isValid) {
-            uploadError = null;
+            cb(null, 'public/restUploads');
+        } else {
+            cb(uploadError);
         }
-        cb(uploadError, 'public/restUploads');
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname.split(' ').join('-');
@@ -29,46 +30,58 @@ const storage = multer.diskStorage({
 
 const uploadOptions = multer({ storage: storage });
 
-router.get(`/`, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const riderList = await Rider.find();
         res.status(200).send(riderList);
-      } catch (error) {
-        res.status(402).send(error);
-      }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
 });
 
-router.get(`/:id`, async (req, res) => {
-    const rider = await Rider.findById(req.params.id);
-    if (!rider) {
-        res.status(500).json({ success: false });
-    } res.send(rider);
+router.get('/:id', async (req, res) => {
+    try {
+        const rider = await Rider.findById(req.params.id);
+        if (rider) {
+            res.send(rider);
+        } else {
+            res.status(404).send('Rider not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
 });
 
-router.post(`/`, uploadOptions.single('image'), async (req, res) => {
-
-    const file = req.file;
-    if (!file) return res.status(400).send('No image in the request');
-
-    const fileName = file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
-    
-    let rider = new Rider({
-        name: req.body.name,
-        image: `${basePath}${fileName}`, 
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-       // passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
-    })
-    rider = await rider.save();
-    if (!rider) return res.status(500).send('The rider cannot be created');
-    res.send(rider);
+router.post('/', uploadOptions.single('image'), async (req, res) => {
+    try {
+        const file = req.file;
+        if (!file) {
+            res.status(400).send('No image in the request');
+        } else {
+            const fileName = file.filename;
+            const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+            const rider = new Rider({
+                name: req.body.name,
+                image: `${basePath}${fileName}`,
+                email: req.body.email,
+                phone: req.body.phone,
+                address: req.body.address,
+            });
+            const newRider = await rider.save();
+            res.status(201).send(newRider);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
 });
 
+// Update a rider by ID
 router.put('/:id', uploadOptions.single('image'), async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
-        return res.status(400).send('Invalid Resturant Id');
+        return res.status(400).send('Invalid Rider Id');
     }
     const rider = await Rider.findById(req.params.id);
     if (!rider) return res.status(400).send('Invalid Rider!');
@@ -88,7 +101,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
         req.params.id,
         {
             name: req.body.name,
-            image: `${basePath}${fileName}`, 
+            image: imagepath, // use imagepath variable here
             email: req.body.email,
             phone: req.body.phone,
             address: req.body.address,
@@ -100,6 +113,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
     res.send(updatedRider);
 });
 
+// Delete a rider by ID
 router.delete('/:id', (req, res) => {
     Rider.findByIdAndRemove(req.params.id)
         .then((rider) => {
@@ -119,57 +133,16 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+// Get the count of riders
 router.get(`/get/count`, async (req, res) => {
-    const productCount = await Rider.countDocuments((count) => count);
+    const riderCount = await Rider.countDocuments((count) => count);
 
-    if (!productCount) {
+    if (!riderCount) {
         res.status(500).json({ success: false });
     }
     res.send({
-        productCount: productCount,
+        riderCount: riderCount,
     });
 });
-
-// router.get(`/get/featured/:count`, async (req, res) => {
-//     const count = req.params.count ? req.params.count : 0;
-//     const products = await Resturant.find({ isFeatured: true }).limit(+count);
-
-//     if (!products) {
-//         res.status(500).json({ success: false });
-//     }
-//     res.send(products);
-// });
-
-// router.put(
-//     '/gallery-images/:id',
-//     uploadOptions.array('images', 10),
-//     async (req, res) => {
-//         if (!mongoose.isValidObjectId(req.params.id)) {
-//             return res.status(400).send('Invalid Resturant Id');
-//         }
-//         const files = req.files;
-//         let imagesPaths = [];
-//         const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-
-//         if (files) {
-//             files.map((file) => {
-//                 imagesPaths.push(`${basePath}${file.filename}`);
-//             });
-//         }
-
-//         const rider = await Resturant.findByIdAndUpdate(
-//             req.params.id,
-//             {
-//                 images: imagesPaths,
-//             },
-//             { new: true }
-//         );
-
-//         if (!rider)
-//             return res.status(500).send('the gallery cannot be updated!');
-
-//         res.send(rider);
-//     }
-// );
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const resturantSchema = mongoose.Schema({
+const restaurantSchema = mongoose.Schema({
    fullname: {
         type: String,
         required: true,
@@ -29,13 +29,13 @@ const resturantSchema = mongoose.Schema({
 })
 
 
-resturantSchema.virtual('id').get(function () {
+restaurantSchema.virtual('id').get(function () {
     return this._id.toHexString();
 });
 
-resturantSchema.set('toJSON', {
+restaurantSchema.set('toJSON', {
     virtuals: true,
 });
 
-exports.Resturant = mongoose.model('Resturant', resturantSchema);
-exports.resturantSchema = resturantSchema;
+exports.Restaurant = mongoose.model('Restaurant', resturantSchema);
+exports.restaurantSchema = restaurantSchema;
