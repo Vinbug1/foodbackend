@@ -3,13 +3,18 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 require('dotenv/config');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler');
 
 // app.use(cors({origin: '*', credentials: true}));
-app.use(cors({origin: true, credentials: true}));
-// app.use(cors());
+// app.use(cors({origin: "*", credentials: true}));
+app.use(cors(corsOptions));
 // app.options('*', cors());
 
 //middleware
