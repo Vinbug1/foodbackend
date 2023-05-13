@@ -7,8 +7,9 @@ require('dotenv/config');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler');
 
-app.use(cors());
-app.options('*', cors());
+app.use(cors({ origin: 'http://localhost:3000',
+'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',}));
+//app.options('*', cors());
 
 //middleware
 app.use(express.json());
