@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const delieverySchema = mongoose.Schema({
+const deliverySchema = mongoose.Schema({
     order:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Order',
@@ -22,13 +22,13 @@ const delieverySchema = mongoose.Schema({
     }
 })
 
-delieverySchema.virtual('id').get(function () {
+deliverySchema.virtual('id').get(function () {
     return this._id.toHexString();
 });
 
-delieverySchema.set('toJSON', {
+deliverySchema.set('toJSON', {
     virtuals: true,
 });
 
-exports.Delievery = mongoose.model('Delievery', delieverySchema);
-exports.delieverySchema = delieverySchema;
+exports.Delivery = mongoose.model('Delievery', deliverySchema);
+exports.deliverySchema = deliverySchema;
