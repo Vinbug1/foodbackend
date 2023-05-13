@@ -7,7 +7,7 @@ require('dotenv/config');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler');
 
-app.use(cors('Access-Control-Allow-Origin: * '));
+app.use(cors({origin: true, credentials: true}));
 //app.options(cors());
 
 //middleware
