@@ -69,8 +69,8 @@ router.get('/', async (req, res) => {
       const fileName = file.filename;
       const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
   
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      //const saltRounds = 10;
+      //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
   
       let restaurant = new Restaurant({
         name: req.body.name,
@@ -78,7 +78,7 @@ router.get('/', async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
-        passwordHash: hashedPassword,
+        //passwordHash: hashedPassword,
       });
       
       restaurant = await restaurant.save();
@@ -131,8 +131,8 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
         const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
         imagePath = `${basePath}${fileName}`;
       }
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      //const saltRounds = 10;
+      //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
       const updatedRestaurant = await Restaurant.findByIdAndUpdate(
         restaurantId,
         {
@@ -140,7 +140,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
           image: imagePath,
           email: req.body.email,
           phone: req.body.phone,
-          passwordHash: hashedPassword,
+         // passwordHash: hashedPassword,
           address: req.body.address,
         },
         { new: true }
