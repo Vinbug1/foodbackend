@@ -63,18 +63,18 @@ router.get('/', async (req, res) => {
 
   router.post('/', uploadOptions.single('image'), async (req, res) => {
     try {
-      const file = req.file;
-      if (!file) return res.status(400).send('No image in the request');
+      // const file = req.file;
+      // if (!file) return res.status(400).send('No image in the request');
   
-      const fileName = file.filename;
-      const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+      // const fileName = file.filename;
+      // const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
   
       //const saltRounds = 10;
       //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
   
       let restaurant = new Restaurant({
         name: req.body.name,
-        image: `${basePath}${fileName}`, 
+        //image: `${basePath}${fileName}`, 
         email: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
