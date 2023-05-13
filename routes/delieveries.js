@@ -66,7 +66,6 @@ router.put('/:id', async (req, res) => {
         },
         { new: true }
     );
-
     if (!updatedDelievery)
         return res.status(500).send('the delievery cannot be updated!');
 
