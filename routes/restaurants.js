@@ -73,7 +73,7 @@ router.get('/', async (req, res) => {
       //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
   
       let restaurant = new Restaurant({
-        name: req.body.name,
+        fullname: req.body.fullname,
         //image: `${basePath}${fileName}`, 
         email: req.body.email,
         phone: req.body.phone,
@@ -136,7 +136,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
       const updatedRestaurant = await Restaurant.findByIdAndUpdate(
         restaurantId,
         {
-          name: req.body.name,
+         fullname: req.body.fullname,
           image: imagePath,
           email: req.body.email,
           phone: req.body.phone,
