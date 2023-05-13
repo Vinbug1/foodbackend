@@ -69,16 +69,12 @@ router.get('/', async (req, res) => {
       const fileName = file.filename;
       const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
   
-      //const saltRounds = 10;
-      //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-  
       let restaurant = new Restaurant({
         fullname: req.body.fullname,
         image: `${basePath}${fileName}`, 
         email: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
-        //passwordHash: hashedPassword,
       });
       
       restaurant = await restaurant.save();
