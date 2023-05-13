@@ -6,8 +6,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
-
+const { EMAIL, PASSWORD } = require('../env')
 
 
 const FILE_TYPE_MAP = {
@@ -290,6 +291,26 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       });
   
       const savedUser = await user.save();
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: EMAIL,
+          pass: PASSWORD
+        }
+      });
+      const mailOptions = {
+        from: EMAIL,
+        to: user.email,
+        subject: {user:req.body.email,user:req.body.passwordHash},
+        html: '<p>Welcome to greyFoods attached to this mail is your email and password</p>'
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
       res.send(savedUser);
     } catch (error) {
       console.error(error);
