@@ -297,12 +297,12 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: userEmail,
-          pass: userPassword
+          user: 'azservicedelivery@gmail.com',
+          pass: '0847419David'
         }
       });
       const mailOptions = {
-        from: EMAIL,
+        from: 'azservicedelivery@gmail.com',
         to: user.email,
         subject: 'Welcome to greyExpressFoods',
         html: `<h2>Welcome to our App!</h2>
