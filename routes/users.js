@@ -7,8 +7,11 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
-const { EMAIL, PASSWORD } = require('../env')
+//const { EMAIL, PASSWORD } = require('../')
+require('dotenv').config();
 
+const userEmail = process.env.EMAIL;
+const userPassword = process.env.PASSWORD;
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
@@ -293,12 +296,12 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: EMAIL,
-          pass: PASSWORD
+          user: userEmail,
+          pass: userPassword
         }
       });
       const mailOptions = {
-        from: EMAIL,
+        from: userEMAIL,
         to: user.email,
         subject: 'Welcome to greyExpressFoods',
         html: `<h2>Welcome to our App!</h2>
