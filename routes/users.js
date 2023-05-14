@@ -298,8 +298,8 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
         service: 'gmail',
         port: 465,
         secure: true,
-        debug: true,
-        logger:true,
+        //debug: true,
+        //logger:true,
         secureConnection: false,
         tls:{
             rejectUnauthorized:true,
