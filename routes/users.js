@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
-const Mailgen = require('mailgen');
+// const Mailgen = require('mailgen');
 // const { EMAIL, PASSWORD } = require('../.env')
 //require('dotenv').config();
 
