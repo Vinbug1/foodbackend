@@ -297,8 +297,8 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'azservicedelivery@gmail.com',
-          pass: '0847419David'
+          user: 'azgreyfoods@gmail.com',
+          pass: ' Azgreyfoods2023'
         }
       });
       const mailOptions = {
