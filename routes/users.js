@@ -10,8 +10,6 @@ const Mailgen = require('mailgen');
 //const { EMAIL, PASSWORD } = require('../')
 require('dotenv').config();
 
-const userEmail = process.env.EMAIL;
-const userPassword = process.env.PASSWORD;
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
@@ -273,6 +271,9 @@ router.post('/login', async (req, res) => {
 // })
 
 router.post('/register', uploadOptions.single('image'), async (req, res) => {
+
+      const userEmail= process.env.EMAIL;
+      const userPassword = process.env.PASSWORD;
     try {
       const file = req.file;
       if (!file) {
@@ -301,7 +302,7 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
         }
       });
       const mailOptions = {
-        from: userEMAIL,
+        from: EMAIL,
         to: user.email,
         subject: 'Welcome to greyExpressFoods',
         html: `<h2>Welcome to our App!</h2>
