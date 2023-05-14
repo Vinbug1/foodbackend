@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
-//const { EMAIL, PASSWORD } = require('../')
-require('dotenv').config();
+const { EMAIL, PASSWORD } = require('../.env')
+//require('dotenv').config();
 
 
 const FILE_TYPE_MAP = {
