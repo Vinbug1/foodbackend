@@ -298,7 +298,7 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
         service: 'gmail',
         auth: {
           user: 'azgreyfoods@gmail.com',
-          pass: ' Azgreyfoods2023'
+          pass: ' Azgreyfoods2023.'
         }
       });
       const mailOptions = {
