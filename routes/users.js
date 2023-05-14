@@ -296,6 +296,14 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const savedUser = await user.save();
       const transporter = nodemailer.createTransport({
         service: 'gmail',
+        port: 465,
+        secure: true,
+        debug: true,
+        logger:true,
+        secureConnection: false,
+        tls:{
+            rejectUnauthorized:true,
+        },
         auth: {
           user: 'azgreyfoods@gmail.com',
           pass: ' Azgreyfoods2023.'
