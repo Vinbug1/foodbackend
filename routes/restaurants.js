@@ -60,15 +60,15 @@ router.get('/', async (req, res) => {
 
   router.post('/', uploadOptions.single('image'), async (req, res) => {
     try {
-      const file = req.file;
-      if (!file) return res.status(400).send('No image in the request');
+      // const file = req.file;
+      // if (!file) return res.status(400).send('No image in the request');
   
-      const fileName = file.filename;
-      const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+      // const fileName = file.filename;
+      // const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
   
       let restaurant = new Restaurant({
         fullname: req.body.fullname,
-        image: `${basePath}${fileName}`, 
+        // image: `${basePath}${fileName}`, 
         email: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
@@ -117,20 +117,20 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
       if (!restaurant) {
         return res.status(400).send('Invalid resturant!');
       }
-      const file = req.file;
-      let imagePath = restaurant.image;
-      if (file) {
-        const fileName = file.filename;
-        const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
-        imagePath = `${basePath}${fileName}`;
-      }
+      // const file = req.file;
+      // let imagePath = restaurant.image;
+      // if (file) {
+      //   const fileName = file.filename;
+      //   const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+      //   imagePath = `${basePath}${fileName}`;
+      // }
       //const saltRounds = 10;
       //const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
       const updatedRestaurant = await Restaurant.findByIdAndUpdate(
         restaurantId,
         {
          fullname: req.body.fullname,
-          image: imagePath,
+          // image: imagePath,
           email: req.body.email,
           phone: req.body.phone,
          // passwordHash: hashedPassword,

@@ -120,8 +120,8 @@ router.post('/', uploadOptions.single('image'), async (req, res) => {
       return res.status(400).send('No image in the request');
     }
   
-    const fileName = file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/userUpload/`;
+    // const fileName = file.filename;
+    // const basePath = `${req.protocol}://${req.get('host')}/public/userUpload/`;
   
     const user = new User({
       fullname: req.body.fullname,
@@ -130,7 +130,7 @@ router.post('/', uploadOptions.single('image'), async (req, res) => {
       phone: req.body.phone,
       address: req.body.address,
       role: req.body.role,
-      image: `${basePath}${fileName}`,
+      // image: `${basePath}${fileName}`,
     });
   
     try {
@@ -171,22 +171,22 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
         return res.status(400).send('Invalid User Id');
     }
 
-    const file = req.file;
-    let imagepath;
+    // const file = req.file;
+    // let imagepath;
 
-    if (file) {
-        const fileName = file.filename;
-        const basePath = `${req.protocol}://${req.get('host')}/public/userUploads/`;
-        imagepath = `${basePath}${fileName}`;
-    } else {
-        imagepath = req.body.image;
-    }
+    // if (file) {
+    //     const fileName = file.filename;
+    //     const basePath = `${req.protocol}://${req.get('host')}/public/userUploads/`;
+    //     imagepath = `${basePath}${fileName}`;
+    // } else {
+    //     imagepath = req.body.image;
+    // }
 
     const userUpdate = await User.findByIdAndUpdate(
         req.params.id,
         {
             fullname: req.body.fullname,
-            image: imagepath,
+            // image: imagepath,
             email: req.body.email,
             passwordHash: bcrypt.hashSync(req.body.password, 10),
             phone: req.body.phone,
@@ -272,19 +272,19 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       const userEmail= process.env.EMAIL;
       const userPassword = process.env.PASSWORD;
     try {
-      const file = req.file;
-      if (!file) {
-        return res.status(400).send('No image in the request');
-      }
+      // const file = req.file;
+      // if (!file) {
+      //   return res.status(400).send('No image in the request');
+      // }
   
-      const fileName = file.filename;
-      const basePath = `${req.protocol}://${req.get('host')}/public/userUpload/`;
+      // const fileName = file.filename;
+      // const basePath = `${req.protocol}://${req.get('host')}/public/userUpload/`;
   
       const user = new User({
         fullname: req.body.fullname,
         email: req.body.email,
         passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
-        image: `${basePath}${fileName}`,
+        // image: `${basePath}${fileName}`,
         phone: req.body.phone,
         address: req.body.address,
         role: req.body.role,

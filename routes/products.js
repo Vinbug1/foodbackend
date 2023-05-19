@@ -74,17 +74,17 @@ router.post('/', uploadOptions.single('image'), async (req, res) => {
 
         const file = req.file;
 
-        if (!file) {
-            return res.status(400).send('No image in the request');
-        }
+        // if (!file) {
+        //     return res.status(400).send('No image in the request');
+        // }
 
-        const fileName = file.filename;
-        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+        // const fileName = file.filename;
+        // const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
         const product = new Product({
             category: req.body.category,
             name: req.body.name,
-            image: `${basePath}${fileName}`,
+            // image: `${basePath}${fileName}`,
             price: req.body.price,
             restaurant: req.body.restaurant,
         });
@@ -125,14 +125,14 @@ router.put('/:id', uploadOptions.single('image'), async (req, res) => {
         return res.status(400).send('Invalid Product');
       }
   
-      let imagePath = product.image;
-      if (req.file) {
-        imagePath = req.file.path;
-      }
+      // let imagePath = product.image;
+      // if (req.file) {
+      //   imagePath = req.file.path;
+      // }
   
       const updatedProduct = await Product.findByIdAndUpdate(
         productId,
-        { category, name, price, image: imagePath, restaurant },
+        { category, name, price, restaurant },
         { new: true }
       );
   
