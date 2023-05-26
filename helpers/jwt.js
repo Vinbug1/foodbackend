@@ -19,6 +19,8 @@ function authJwt() {
             {url: /\/api\/v1\/trips(.*)/,methods: ['GET', 'OPTIONS', 'POST']},
             `${api}/users/login`,
             `${api}/users/register`,
+            `${api}/restaurants/register`,
+            `${api}/riders/register`,
             // `${api}/resturants/`,
         ]
     })

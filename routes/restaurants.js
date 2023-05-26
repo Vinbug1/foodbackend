@@ -57,8 +57,9 @@ router.get('/', async (req, res) => {
     }
   });
 
+  //uploadOptions.single('image'),
 
-  router.post('/', uploadOptions.single('image'), async (req, res) => {
+  router.post('/register',  async (req, res) => {
     try {
       // const file = req.file;
       // if (!file) return res.status(400).send('No image in the request');
@@ -107,7 +108,7 @@ router.get('/', async (req, res) => {
 //     res.send(resturant);
 // });
 
-router.put('/:id', uploadOptions.single('image'), async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
       const restaurantId = req.params.id;
       if (!mongoose.isValidObjectId(resturantId)) {

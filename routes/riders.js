@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', uploadOptions.single('image'), async (req, res) => {
+router.post('/register', uploadOptions.single('image'), async (req, res) => {
     try {
         const file = req.file;
         if (!file) {
