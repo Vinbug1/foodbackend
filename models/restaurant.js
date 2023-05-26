@@ -17,10 +17,6 @@ const restaurantSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    // passwordHash: {
-    //     type: String,
-    //     required: true
-    // },
     address:{
         type:String,
         required: true
