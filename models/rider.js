@@ -5,10 +5,10 @@ const riderSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    image: {
-        type: String,
-        default: ''
-    },
+    // image: {
+    //     type: String,
+    //     default: ''
+    // },
     email: {
         type: String,
         required: true

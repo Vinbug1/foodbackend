@@ -56,22 +56,22 @@ router.get('/:id', async (req, res) => {
 
 router.post('/register', uploadOptions.single('image'), async (req, res) => {
     try {
-        const file = req.file;
-        if (!file) {
-            res.status(400).send('No image in the request');
-        } else {
-            const fileName = file.filename;
-            const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+        //const file = req.file;
+        //if (!file) {
+          //  res.status(400).send('No image in the request');
+       // } else {
+            // const fileName = file.filename;
+            // const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
             const rider = new Rider({
                 name: req.body.name,
-                image: `${basePath}${fileName}`,
+                // image: `${basePath}${fileName}`,
                 email: req.body.email,
                 phone: req.body.phone,
                 address: req.body.address,
             });
             const newRider = await rider.save();
             res.status(201).send(newRider);
-        }
+       // }
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal server error');
@@ -79,29 +79,29 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
 });
 
 // Update a rider by ID
-router.put('/:id', uploadOptions.single('image'), async (req, res) => {
+router.put('/:id',async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).send('Invalid Rider Id');
     }
     const rider = await Rider.findById(req.params.id);
     if (!rider) return res.status(400).send('Invalid Rider!');
 
-    const file = req.file;
-    let imagepath;
+    // const file = req.file;
+    // let imagepath;
 
-    if (file) {
-        const fileName = file.filename;
-        const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
-        imagepath = `${basePath}${fileName}`;
-    } else {
-        imagepath = rider.image;
-    }
+    // if (file) {
+    //     const fileName = file.filename;
+    //     const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
+    //     imagepath = `${basePath}${fileName}`;
+    // } else {
+    //     imagepath = rider.image;
+    // }
 
     const updatedRider = await Rider.findByIdAndUpdate(
         req.params.id,
         {
             name: req.body.name,
-            image: imagepath, // use imagepath variable here
+            // //image: imagepath, // use imagepath variable here
             email: req.body.email,
             phone: req.body.phone,
             address: req.body.address,
