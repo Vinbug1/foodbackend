@@ -6,6 +6,10 @@ const orderSchema = mongoose.Schema({
         ref: 'OrderItem',
         required:true
     }],
+    address: {
+        type:String,
+        required:true
+    },
     status: {
         type: String,
         required: true,
@@ -18,9 +22,9 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    resturant: {
+    vendor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Resturant ',
+        ref: 'User',
     },
     dateOrdered: {
         type: Date,
