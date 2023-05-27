@@ -114,7 +114,7 @@ router.get('/:id', async (req, res) => {
 //     res.status(200).send(user);
 // })
 
-router.post('/', uploadOptions.single('image'), async (req, res) => {
+router.post('/', async (req, res) => {
     const file = req.file;
     if (!file) {
       return res.status(400).send('No image in the request');
@@ -267,7 +267,7 @@ router.post('/login', async (req, res) => {
 //     }
 // })
 
-router.post('/register', uploadOptions.single('image'), async (req, res) => {
+router.post('/register', async (req, res) => {
 
       const userEmail= process.env.EMAIL;
       const userPassword = process.env.PASSWORD;
@@ -324,7 +324,7 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
       });
       res.send(savedUser);
     } catch (error) {
-      console.error(error);
+      // //console.error(error);
       res.status(500).send('Internal server error');
     }
   });
