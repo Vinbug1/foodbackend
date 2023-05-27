@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const {User} = require('../models/user');
+const {User }= require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -269,8 +269,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
 
-      const userEmail= process.env.EMAIL;
-      const userPassword = process.env.PASSWORD;
+      //const userEmail= process.env.EMAIL;
+      //const userPassword = process.env.PASSWORD;
     try {
       // const file = req.file;
       // if (!file) {
@@ -283,13 +283,11 @@ router.post('/register', async (req, res) => {
       const user = new User({
         fullname: req.body.fullname,
         email: req.body.email,
-        passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
-        // image: `${basePath}${fileName}`,
+        passwordHash: bcrypt.hashSync(req.body.password, 10),
         phone: req.body.phone,
         address: req.body.address,
         role: req.body.role,
-      });
-  
+      });  
       const savedUser = await user.save();
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -324,7 +322,7 @@ router.post('/register', async (req, res) => {
       });
       res.send(savedUser);
     } catch (error) {
-      // //console.error(error);
+      console.error(error);
       res.status(500).send('Internal server error');
     }
   });
