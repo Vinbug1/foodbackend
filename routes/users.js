@@ -65,7 +65,7 @@ router.get(`/`, async (req, res) => {
 //       }
 // })
 
-router.get('/', async (req, res) =>{
+router.get('/vendor', async (req, res) =>{
     try {
       const userList = await User.find({role: "vendor"});
       res.status(200).send(userList);
