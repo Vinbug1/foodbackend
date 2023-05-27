@@ -63,7 +63,7 @@ router.post('/register', uploadOptions.single('image'), async (req, res) => {
             // const fileName = file.filename;
             // const basePath = `${req.protocol}://${req.get('host')}/public/restUploads/`;
             const rider = new Rider({
-                name: req.body.name,
+                fullname: req.body.fullname,
                 // image: `${basePath}${fileName}`,
                 email: req.body.email,
                 phone: req.body.phone,
@@ -100,7 +100,7 @@ router.put('/:id',async (req, res) => {
     const updatedRider = await Rider.findByIdAndUpdate(
         req.params.id,
         {
-            name: req.body.name,
+            fullname: req.body.fullname,
             // //image: imagepath, // use imagepath variable here
             email: req.body.email,
             phone: req.body.phone,
