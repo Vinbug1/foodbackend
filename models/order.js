@@ -17,6 +17,7 @@ const orderSchema = mongoose.Schema({
     },
     totalPrice: {
         type: Number,
+        default:''
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
