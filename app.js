@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const corsOptions = { origin: 'http://localhost:3000',credentials: true };
+const corsOptions = { origin: ['https://az-gray-express.netlify.app','http://localhost:3000'],credentials: true };
 //const corsOptions = { origin: 'https://az-gray-express.netlify.app',credentials: true };
 require('dotenv').config();
 const authJwt = require('./helpers/jwt');
